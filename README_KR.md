@@ -1,4 +1,4 @@
-# 15분만에 배우는 Lua
+# 몇 분만에 배우는 Lua
 
 ## 주석
 
@@ -320,15 +320,15 @@ eatenBy = myFavs.animal  -- 작동합니다! 메타테이블 덕분입니다
 
 ---
 
-## 3.2 Class-like Tables and Inheritance
+## 3.2 클래스형 테이블과 상속
 
-### Creating a Class
+### 클래스 만들기
 
 ```lua
--- Classes aren't built in; there are different ways
--- to make them using tables and metatables.
+-- 클래스는 내장되어 있지 않습니다. 테이블과 메타테이블을
+-- 사용하여 만드는 다양한 방법이 있습니다.
 
--- Explanation for this example is below it.
+-- 이 예제에 대한 설명은 아래에 있습니다.
 
 Dog = {}                                   -- 1.
 
@@ -345,27 +345,27 @@ end
 mrDog = Dog:new()                          -- 7.
 mrDog:makeSound()  -- 'I say woof'         -- 8.
 
--- 1. Dog acts like a class; it's really a table.
--- 2. function tablename:fn(...) is the same as
---    function tablename.fn(self, ...)
---    The : just adds a first arg called self.
---    Read 7 & 8 below for how self gets its value.
--- 3. newObj will be an instance of class Dog.
--- 4. self = the class being instantiated. Often
---    self = Dog, but inheritance can change it.
---    newObj gets self's functions when we set both
---    newObj's metatable and self's __index to self.
--- 5. Reminder: setmetatable returns its first arg.
--- 6. The : works as in 2, but this time we expect
---    self to be an instance instead of a class.
--- 7. Same as Dog.new(Dog), so self = Dog in new().
--- 8. Same as mrDog.makeSound(mrDog); self = mrDog.
+-- 1. Dog는 클래스처럼 작동합니다. 실제로는 테이블입니다.
+-- 2. function tablename:fn(...)은
+--    function tablename.fn(self, ...)와 같습니다.
+--    :는 단지 self라는 첫 번째 인자를 추가합니다.
+--    self가 값을 얻는 방법은 아래 7과 8을 참조하세요.
+-- 3. newObj는 Dog 클래스의 인스턴스가 될 것입니다.
+-- 4. self = 인스턴스화되는 클래스입니다. 종종
+--    self = Dog이지만, 상속은 이것을 변경할 수 있습니다.
+--    newObj의 메타테이블과 self의 __index를 모두
+--    self로 설정하면 newObj가 self의 함수를 얻습니다.
+-- 5. 알림: setmetatable은 첫 번째 인자를 반환합니다.
+-- 6. :는 2와 같이 작동하지만, 이번에는
+--    self가 클래스 대신 인스턴스일 것으로 예상합니다.
+-- 7. Dog.new(Dog)와 같으므로, new()에서 self = Dog입니다.
+-- 8. mrDog.makeSound(mrDog)와 같습니다. self = mrDog입니다.
 ```
 
-### Inheritance Example
+### 상속 예제
 
 ```lua
--- Inheritance example:
+-- 상속 예제:
 
 LoudDog = Dog:new()                           -- 1.
 
@@ -377,22 +377,23 @@ end
 seymour = LoudDog:new()                       -- 3.
 seymour:makeSound()  -- 'woof woof woof'      -- 4.
 
--- 1. LoudDog gets Dog's methods and variables.
--- 2. self has a 'sound' key from new(), see 3.
--- 3. Same as LoudDog.new(LoudDog), and converted to
---    Dog.new(LoudDog) as LoudDog has no 'new' key,
---    but does have __index = Dog on its metatable.
---    Result: seymour's metatable is LoudDog, and
---    LoudDog.__index = LoudDog. So seymour.key will
---    = seymour.key, LoudDog.key, Dog.key, whichever
---    table is the first with the given key.
--- 4. The 'makeSound' key is found in LoudDog; this
---    is the same as LoudDog.makeSound(seymour).
+-- 1. LoudDog는 Dog의 메서드와 변수를 가져옵니다.
+-- 2. self는 new()에서 'sound' 키를 가집니다. 3을 참조하세요.
+-- 3. LoudDog.new(LoudDog)와 같으며,
+--    Dog.new(LoudDog)로 변환됩니다.
+--    LoudDog에는 'new' 키가 없지만,
+--    메타테이블에 __index = Dog가 있기 때문입니다.
+--    결과: seymour의 메타테이블은 LoudDog이고,
+--    LoudDog.__index = LoudDog입니다. 따라서 seymour.key는
+--    주어진 키를 가진 첫 번째 테이블인
+--    seymour.key, LoudDog.key, Dog.key가 됩니다.
+-- 4. 'makeSound' 키는 LoudDog에서 발견됩니다.
+--    이것은 LoudDog.makeSound(seymour)와 같습니다.
 
--- If needed, a subclass's new() is like the base's:
+-- 필요한 경우, 서브클래스의 new()는 베이스와 비슷합니다:
 function LoudDog:new()
   newObj = {}
-  -- set up newObj
+  -- newObj 설정
   self.__index = self
   return setmetatable(newObj, self)
 end
@@ -400,14 +401,14 @@ end
 
 ---
 
-## 4. Modules
+## 4. 모듈
 
-### Module Pattern
+### 모듈 패턴
 
 ```lua
---[[ I'm commenting out this section so the rest of
---   this script remains runnable.
--- Suppose the file mod.lua looks like this:
+--[[ 이 섹션을 주석 처리하여
+--   이 스크립트의 나머지 부분이 실행 가능하도록 합니다.
+-- mod.lua 파일이 다음과 같다고 가정합니다:
 local M = {}
 
 local function sayMyName()
@@ -421,78 +422,78 @@ end
 
 return M
 
--- Another file can use mod.lua's functionality:
-local mod = require('mod')  -- Run the file mod.lua.
+-- 다른 파일에서 mod.lua의 기능을 사용할 수 있습니다:
+local mod = require('mod')  -- mod.lua 파일을 실행합니다.
 
--- require is the standard way to include modules.
--- require acts like:     (if not cached; see below)
+-- require는 모듈을 포함하는 표준 방법입니다.
+-- require는 다음처럼 작동합니다: (캐시되지 않은 경우; 아래 참조)
 local mod = (function ()
-  <contents of mod.lua>
+  <mod.lua의 내용>
 end)()
--- It's like mod.lua is a function body, so that
--- locals inside mod.lua are invisible outside it.
+-- mod.lua가 함수 본문과 같아서,
+-- mod.lua 내부의 지역 변수가 외부에서 보이지 않습니다.
 
--- This works because mod here = M in mod.lua:
-mod.sayHello()  -- Says hello to Hrunkner.
+-- 여기서 mod = mod.lua의 M이므로 작동합니다:
+mod.sayHello()  -- Hrunkner에게 인사합니다.
 
--- This is wrong; sayMyName only exists in mod.lua:
-mod.sayMyName()  -- error
+-- 이것은 잘못되었습니다. sayMyName은 mod.lua에만 존재합니다:
+mod.sayMyName()  -- 오류
 
--- require's return values are cached so a file is
--- run at most once, even when require'd many times.
+-- require의 반환 값은 캐시되므로 파일은
+-- 여러 번 require되어도 최대 한 번만 실행됩니다.
 
--- Suppose mod2.lua contains "print('Hi!')".
-local a = require('mod2')  -- Prints Hi!
-local b = require('mod2')  -- Doesn't print; a=b.
+-- mod2.lua가 "print('Hi!')"를 포함한다고 가정합니다.
+local a = require('mod2')  -- Hi!를 출력합니다
+local b = require('mod2')  -- 출력하지 않습니다. a=b입니다.
 
--- dofile is like require without caching:
+-- dofile은 캐싱 없이 require와 같습니다:
 dofile('mod2.lua')  --> Hi!
-dofile('mod2.lua')  --> Hi! (runs it again)
+dofile('mod2.lua')  --> Hi! (다시 실행합니다)
 
--- loadfile loads a lua file but doesn't run it yet.
-f = loadfile('mod2.lua')  -- Call f() to run it.
+-- loadfile은 lua 파일을 로드하지만 아직 실행하지 않습니다.
+f = loadfile('mod2.lua')  -- f()를 호출하여 실행합니다.
 
--- loadstring is loadfile for strings.
-g = loadstring('print(343)')  -- Returns a function.
-g()  -- Prints out 343; nothing printed before now.
+-- loadstring은 문자열용 loadfile입니다.
+g = loadstring('print(343)')  -- 함수를 반환합니다.
+g()  -- 343을 출력합니다. 이전에는 아무것도 출력되지 않았습니다.
 
 --]]
 ```
 
 ---
 
-## 5. References
+## 5. 참고자료
 
 ```lua
 --[[
 
-I was excited to learn Lua so I could make games
-with the Löve 2D game engine. That's the why.
+저는 Löve 2D 게임 엔진으로 게임을 만들기 위해
+Lua를 배우는 것에 흥분했습니다. 그것이 이유입니다.
 
-I started with BlackBulletIV's Lua for programmers.
-Next I read the official Programming in Lua book.
-That's the how.
+저는 BlackBulletIV의 Lua for programmers로 시작했습니다.
+다음으로 공식 Programming in Lua 책을 읽었습니다.
+그것이 방법입니다.
 
-It might be helpful to check out the Lua short
-reference on lua-users.org.
+lua-users.org의 Lua 짧은 참고자료를
+확인하는 것이 도움이 될 수 있습니다.
 
-The main topics not covered are standard libraries:
- * string library
- * table library
- * math library
- * io library
- * os library
+다루지 않은 주요 주제는 표준 라이브러리입니다:
+ * string 라이브러리
+ * table 라이브러리
+ * math 라이브러리
+ * io 라이브러리
+ * os 라이브러리
 
-By the way, this entire file is valid Lua; save it
-as learn.lua and run it with "lua learn.lua" !
+참고로, 이 전체 파일은 유효한 Lua입니다.
+learn.lua로 저장하고 "lua learn.lua"로 실행하세요!
 
-This was first written for tylerneylon.com. It's
-also available as a github gist. Tutorials for other
-languages, in the same style as this one, are here:
+이것은 처음에 tylerneylon.com을 위해 작성되었습니다.
+github gist로도 이용 가능합니다. 이것과 같은 스타일로
+다른 언어에 대한 튜토리얼은 여기에 있습니다:
 
 https://learnxinyminutes.com/
 
-Have fun with Lua!
+Lua를 즐기세요!
 
 --]]
 ```
