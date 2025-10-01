@@ -301,21 +301,21 @@ eatenBy = myFavs.animal  -- 작동합니다! 메타테이블 덕분입니다
 -- __index, add 등의 값을 메타메서드라고 합니다.
 -- 전체 목록. 여기서 a는 메타메서드를 가진 테이블입니다.
 
--- __add(a, b)                     a + b용
--- __sub(a, b)                     a - b용
--- __mul(a, b)                     a * b용
--- __div(a, b)                     a / b용
--- __mod(a, b)                     a % b용
--- __pow(a, b)                     a ^ b용
--- __unm(a)                        -a용
--- __concat(a, b)                  a .. b용
--- __len(a)                        #a용
--- __eq(a, b)                      a == b용
--- __lt(a, b)                      a < b용
--- __le(a, b)                      a <= b용
--- __index(a, b)  <fn 또는 테이블>  a.b용
--- __newindex(a, b, c)             a.b = c용
--- __call(a, ...)                  a(...)용
+-- __add(a, b)                     a + b
+-- __sub(a, b)                     a - b
+-- __mul(a, b)                     a * b
+-- __div(a, b)                     a / b
+-- __mod(a, b)                     a % b
+-- __pow(a, b)                     a ^ b
+-- __unm(a)                        -a
+-- __concat(a, b)                  a .. b
+-- __len(a)                        #a
+-- __eq(a, b)                      a == b
+-- __lt(a, b)                      a < b
+-- __le(a, b)                      a <= b
+-- __index(a, b)  <fn 또는 테이블>  a.b
+-- __newindex(a, b, c)             a.b = c
+-- __call(a, ...)                  a(...)
 ```
 
 ---
